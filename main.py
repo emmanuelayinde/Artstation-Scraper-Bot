@@ -6,14 +6,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from scraper import scrape_artstation_user
+from utils.scraper import scrape_artstation_user
+from utils.users import get_all_users
 
 # Replace with your chromedriver path
 PATH = "C:\Program Files (x86)\chromedriver.exe"
 # CONFIG FOR DEVELOPMENT ENV
 
-users = ['angelobortolini', 'izzyh', 'kamuihax', 'carolinegariba', 'ramzykamen', 'onikaizer', 'tiffachiu', 'juyoungoh', 'sulamoon', 'resolvent',
-         'nicolasaviori', 'patriartis', 'cortesdev', 'cryofowl', 'willmurai', 'jayaxer', 'angelicaalieva', 'greentaldarin', 'jasonkang', 'leossart', 'grafit']
+users = get_all_users()
+
 i = 0
 
 
@@ -21,6 +22,10 @@ while True:
     driver = webdriver.Chrome(PATH)
     
     user_url = users[i]
+    print(user_url)
+    print(len(users))
+
+
     print(f'Scraping {user_url} profile in progress...........................')
     scrape_artstation_user(user_url, driver, WebDriverWait, By, EC)
     print('Done Scraping.......................')
@@ -30,4 +35,4 @@ while True:
         i = 0
 
     # Sleep for a minute
-    time.sleep(60)
+    time.sleep(10)
