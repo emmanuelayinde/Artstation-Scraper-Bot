@@ -11,7 +11,8 @@ not_keys = ['fanart', 'fan art', 'fan-art']
 
 def scrape_artstation_user(user_url, driver, WebDriverWait, By,EC):
     driver.get(f"https://www.artstation.com/{user_url}")
-    gallery = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.CSS_SELECTOR, "div.gallery")))
+    time.sleep(15)
+    gallery = driver.find_element(By.CSS_SELECTOR, 'div.gallery')
     artworks = gallery.find_elements(By.CSS_SELECTOR, 'div.project > a.project-image')[:2]
 
     latest_artwork = None
