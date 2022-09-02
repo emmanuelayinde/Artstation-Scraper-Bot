@@ -19,7 +19,7 @@ chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
 
-alive()
+# alive()
 users = get_all_users()
 i = 0
 
