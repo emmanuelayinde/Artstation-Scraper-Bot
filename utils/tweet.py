@@ -4,6 +4,8 @@ import requests
 import tweepy
 from dotenv import load_dotenv
 
+from utils.date import now
+
 load_dotenv()
 
 
@@ -29,12 +31,12 @@ def tweet(tweet, medias = None):
         response = client.update_status(
             text = tweet
         )
-        print(f"https://twitter.com/user/status/{response.data['id']}")
+        print(f"https://twitter.com/user/status/{response.data['id']}", now())
     else:
         
         # tweet_image(media[0].get_attribute('src'), tweet)
         tweet_image(medias, tweet)
-        print('Done tweeting..........')
+        print('Done tweeting..........', now())
 
 def tweet_image(medias, message):
     # [0].get_attribute('src')
@@ -52,7 +54,7 @@ def tweet_image(medias, message):
             # response = client.update_status(status = message, media_ids = [media_file.media_id_string])
             # os.remove(file)
         else:
-            print("Unable to download image")
+            print("Unable to download image", now())
     response = client.update_status(status = message, media_ids = medias_id_string)   
     time.sleep(2)
 
