@@ -1,6 +1,7 @@
 # IMPORT NECCESSARY LIB
 import os
 import time
+from utils.date import now
 from utils.tweet import tweet
 from utils.utils import check_if_supported, check_if_tweeted, format_artwork, write_artwork_url
 
@@ -31,7 +32,7 @@ def scrape_artstation_user(user_url, driver, WebDriverWait, By,EC):
         write_artwork_url(artwork.get_attribute('href'))
 
         latest_artwork = artwork.get_attribute('href')
-        print(latest_artwork)
+        print(latest_artwork, now())
         break
 
     if latest_artwork != None:
@@ -44,7 +45,7 @@ def scrape_artstation_user(user_url, driver, WebDriverWait, By,EC):
         time.sleep(10)
 
        
-        print(artwork_title , '...............................'  , artwork_description)
+        print(artwork_title , '...............................'  , artwork_description, now())
         supportted = check_if_supported(artwork_title, artwork_description)
         print(supportted)
 
@@ -57,28 +58,28 @@ def scrape_artstation_user(user_url, driver, WebDriverWait, By,EC):
             try:
                 artwork_imgs = driver.find_elements(By.CSS_SELECTOR, "project-asset.asset > div.asset-container > div.asset-image > picture.d-block > img.img")
                 for i in artwork_imgs:
-                    print(i.get_attribute('src'))
+                    print(i.get_attribute('src'), now())
                 image_present = True
             except:
                 image_present = False
-                print('No image for the post')    
+                print('No image for the post', now())    
 
 
             text = format_artwork(artwork_author_name, artwork_title, artwork_description, artwork_url)
             print(text)
-            print('Tweeting in a moment.............')
+            print('Tweeting in a moment.............', now())
             if image_present:
                 tweet(text, artwork_imgs)
             else:
                 tweet(text, None)     
 
         else:
-            print('Post does not contain "Hearthstone"')    
+            print('Post does not contain "Hearthstone"', now())    
 
         time.sleep(5)
         driver.quit()
     else:    
-        print('No Latest artwork.....................')
+        print('No Latest artwork.....................', now())
 
     time.sleep(5)
     driver.quit()
